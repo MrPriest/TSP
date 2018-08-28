@@ -150,7 +150,6 @@ int main () {
 
   int best_cost = path_cost(shuffled_nodes, nodes_number);
   float best[2000][3];
-  std::copy(&nodes[0][0], &nodes[0][0]+nodes_number*3, &shuffled_nodes[0][0]);
   int shuffled_cost;
 
   for (float i = temperature; i > 0; i -= temp_change){
