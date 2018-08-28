@@ -46,8 +46,8 @@ int path_cost (float nodes_array[][3], int nodes_number){
 }
 
 void otp2 (float nodes_array[][3], int nodes_number){
-  int pos_1 = (std::rand() % nodes_number);
-  int pos_2 = (std::rand() % nodes_number);
+  int pos_1 = (std::rand() % nodes_number + 1);
+  int pos_2 = (std::rand() % nodes_number + 1);
   if (pos_1 > pos_2) {
     int tmp = pos_2;
     pos_2 = pos_1;
