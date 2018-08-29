@@ -76,7 +76,7 @@ void should_accept (double nodes_array[][3], double temp){ //generates 2otp from
   }
 }
 
-int main () {
+int main (int argc, char** argv) { //path to probelm as input. sample: ./cup AI_cup_2017_problems/ch130.tsp
 
   double temperature = 1000.0;
   double temp_change = 0.99997; //alpha
@@ -88,7 +88,7 @@ int main () {
 /////////////////////////////////TAKING INPUT//////////////////////////////////
   std::string line;
   int line_count = 0;
-  std::ifstream myfile ("AI_cup_2017_problems/u1060.tsp");
+  std::ifstream myfile (argv[1]);
   if (myfile.is_open()) {
     while ( getline (myfile,line) ) {
       if (line_count == 3) { //when line_count=3 get dimension
