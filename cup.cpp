@@ -18,15 +18,6 @@
 #include <ctime>
 #include <cstdlib>
 
-//TODO
-// take "DIMENSION" and put it in array "nodes" size
-// take nodes with coords and put them in the nodes array
-// to do that start from the 7th row, each row will be a node
-// first compute a random on the nodes
-// then compute 2 otp on each iteration of the annealing
-// reference: http://www.cleveralgorithms.com/nature-inspired/physical/simulated_annealing.html
-// take input file and all other parameters from terminal
-
 double nodes[2000][3]; //MAX INPUT NODES 2000. [id, x, y]
 int nodes_number;
 int shuffled_cost;
@@ -74,7 +65,7 @@ void should_accept (double nodes_array[][3], double temp){ //generates 2otp from
   }
 }
 
-int main (int argc, char** argv) { //path to probelm as input. sample: ./cup AI_cup_2017_problems/ch130.tsp
+int main (int argc, char** argv) {
 
   double temperature = 1000.0;
   double temp_change = atof(argv[2]); //0.99997; //alpha
@@ -118,17 +109,6 @@ int main (int argc, char** argv) { //path to probelm as input. sample: ./cup AI_
   } else {
     std::cout << "Unable to open file";
   }
-  // //          nodes array print            //
-  //
-  //   for (int i = 0; i < nodes_number; ++i)
-  //   {
-  //       for (int j = 0; j < 3; ++j)
-  //       {
-  //           std::cout << nodes[i][j] << " ";
-  //       }
-  //       std::cout << std::endl;
-  //   }
-  // //                                       //
 
 //////////////////////// CREATE FIRST RANDOM TOUR /////////////////////////////
 
@@ -136,19 +116,6 @@ int main (int argc, char** argv) { //path to probelm as input. sample: ./cup AI_
   std::copy(&nodes[0][0], &nodes[0][0]+nodes_number*3,&shuffled_nodes[0][0]);
   std::random_shuffle ( &shuffled_nodes[0], &shuffled_nodes[nodes_number], myrandom);
   shuffled_cost = path_cost(shuffled_nodes);
-
-  // //          nodes array print            //
-  //
-  //   for (int i = 0; i < nodes_number; ++i)
-  //   {
-  //       for (int j = 0; j < 3; ++j)
-  //       {
-  //           std::cout << shuffled_nodes[i][j] << " ";
-  //       }
-  //       std::cout << std::endl;
-  //   }
-  // //                                       //
-  // std::cout << "random cost: " << path_cost(shuffled_nodes) << std::endl;
 
 ////////////////////////////////// ANNEALING //////////////////////////////////
 
@@ -161,7 +128,6 @@ int main (int argc, char** argv) { //path to probelm as input. sample: ./cup AI_
     if (shuffled_cost <= best_cost) {
       std::copy(&shuffled_nodes[0][0], &shuffled_nodes[0][0]+nodes_number*3,&best[0][0]);
       best_cost = shuffled_cost;
-      // std::cout << "bc: " << best_cost << '\n';
     }
   }
 
