@@ -27,10 +27,9 @@
 // reference: http://www.cleveralgorithms.com/nature-inspired/physical/simulated_annealing.html
 // take input file and all other parameters from terminal
 
-// max_iterations = 2000;
-
 double nodes[2000][3]; //MAX INPUT NODES 2000. [id, x, y]
 int nodes_number;
+int shuffled_cost;
 
 int myrandom (int i) {
   return std::rand()%i;
@@ -59,20 +58,17 @@ void otp2 (double nodes_array[][3]){
   std::reverse(&nodes_array[pos_1], &nodes_array[pos_2]);
 }
 
-void should_accept (double nodes_array[][3], double temp){ //generates 2otp from current, compares them and picks the optimal one (at the end, input array will contain optimal). Also updates the best.
+void should_accept (double nodes_array[][3], double temp){ //generates 2otp from current, compares them and picks the optimal one (at the end, input array will contain optimal).
   double otp_nodes[nodes_number][3];
   std::copy(&nodes_array[0][0], &nodes_array[0][0]+nodes_number*3,&otp_nodes[0][0]);
   otp2(otp_nodes);
-  int cost = path_cost(nodes_array);
   int otp_cost = path_cost(otp_nodes);
-  // std::cout << cost << " " << otp_cost << std::endl;
-  if (otp_cost <= cost) {
-    // std::cout << "L E S S" << '\n';
+  if (otp_cost <= shuffled_cost) {
+    shuffled_cost = otp_cost;
     std::copy(&otp_nodes[0][0], &otp_nodes[0][0]+nodes_number*3,&nodes_array[0][0]);
   } else {
-    // std::cout << "M O R E" << '\n';
-    if ( exp((cost - otp_cost)/temp) > ((double)rand()/(RAND_MAX)) ){
-      // std::cout << "M O R E  A C C E P T" << '\n';
+    if ( exp((shuffled_cost - otp_cost)/temp) > ((double)rand()/(RAND_MAX)) ){
+      shuffled_cost = otp_cost;
       std::copy(&otp_nodes[0][0], &otp_nodes[0][0]+nodes_number*3,&nodes_array[0][0]);
     }
   }
@@ -139,6 +135,7 @@ int main (int argc, char** argv) { //path to probelm as input. sample: ./cup AI_
   double shuffled_nodes[nodes_number][3];
   std::copy(&nodes[0][0], &nodes[0][0]+nodes_number*3,&shuffled_nodes[0][0]);
   std::random_shuffle ( &shuffled_nodes[0], &shuffled_nodes[nodes_number], myrandom);
+  shuffled_cost = path_cost(shuffled_nodes);
 
   // //          nodes array print            //
   //
@@ -157,11 +154,9 @@ int main (int argc, char** argv) { //path to probelm as input. sample: ./cup AI_
 
   int best_cost = path_cost(shuffled_nodes);
   double best[nodes_number][3];
-  int shuffled_cost;
 
   for (double i = temperature; i > temp_min; i = temp_change * i){
     should_accept(shuffled_nodes, i);
-    shuffled_cost = path_cost(shuffled_nodes);
     // shuffled nodes better than solution?
     if (shuffled_cost <= best_cost) {
       std::copy(&shuffled_nodes[0][0], &shuffled_nodes[0][0]+nodes_number*3,&best[0][0]);
