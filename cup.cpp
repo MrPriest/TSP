@@ -67,6 +67,10 @@ void should_accept (double nodes_array[][3], double temp){ //generates 2otp from
 
 int main (int argc, char** argv) {
 
+  time_t start, end; //initialising counter to exit after 3 minutes
+  double elapsed;  // seconds
+  start = time(NULL);
+
   double temperature = 1000.0;
   double temp_change = atof(argv[2]); //0.99997; //alpha
   double temp_min = 0.00000001;
@@ -129,6 +133,11 @@ int main (int argc, char** argv) {
       std::copy(&shuffled_nodes[0][0], &shuffled_nodes[0][0]+nodes_number*3,&best[0][0]);
       best_cost = shuffled_cost;
     }
+
+    end = time(NULL); //exit after 3 minutes
+    elapsed = difftime(end, start);
+    if (elapsed >= 175.0 /* seconds */)
+       break;
   }
 
  //  std::cout << "-------------------------------------------------------------" << std::endl;
