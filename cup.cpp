@@ -140,19 +140,19 @@ int main (int argc, char** argv) {
        break;
   }
 
- //  std::cout << "-------------------------------------------------------------" << std::endl;
- //  std::cout << "best solution: " << std::endl;
- // //          nodes array print            //
- //
- //   for (int i = 0; i < nodes_number; ++i)
- //   {
- //       for (int j = 0; j < 3; ++j)
- //       {
- //           std::cout << best[i][j] << " ";
- //       }
- //       std::cout << std::endl;
- //   }
- // //                                       //
+  std::cout << "-------------------------------------------------------------" << std::endl;
+  std::cout << "best solution: " << std::endl;
+ //          nodes array print            //
+
+   for (int i = 0; i < nodes_number; ++i)
+   {
+       for (int j = 0; j < 3; ++j)
+       {
+           std::cout << best[i][j] << " ";
+       }
+       std::cout << std::endl;
+   }
+ //                                       //
  std::cout << "-------------------------------------------------------------" << std::endl;
  std::cout << "best cost: " << best_cost << std::endl;
  std::cout << "-------------------------------------------------------------" << std::endl;
