@@ -207,7 +207,7 @@ int main (int argc, char** argv) {
 
 ////////////////////////////////// ANNEALING //////////////////////////////////
 
-  int best_cost = path_cost(shuffled_nodes);
+  int best_cost = shuffled_cost;
   double best[nodes_number][3];
 
   for (double i = temperature; i > temp_min; i = temp_change * i){
